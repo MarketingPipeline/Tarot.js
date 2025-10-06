@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo | Tarot.js</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/@primer/css/dist/primer.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/github.min.css">
+  <meta name="author" content="github.com/marketingpipeline">
+  <meta name="description" content="Tarot.js — JavaScript Tarot Deck and Reading Library">
+  <meta name="keywords" content="tarot, javascript, library, deck, spreads, readings, npm, github, cards, shuffle, fortune, frontend, game">
+
+  <meta property="og:title" content="Tarot.js Library" />
+  <meta property="og:description" content="Tarot.js — JavaScript Tarot Deck and Reading Library" />
+
+
+</head>
+
+<body>
+
+  <style>
+    /* styling used for the demo(s) */
+    .repl {
+      text-shadow: none;
+      color: #333;
+      background: #f8f8f8;
+      padding: 0;
+      text-align: left;
+      width: 600px;
+      margin: 50px auto;
+      border-radius: 3px;
+      border: 1px solid #ddd;
+      overflow: hidden;
+    }
+
+    .repl code {
+      height: 200px;
+      overflow-y: scroll;
+    }
+
+    pre {
+      margin: 0;
+    }
+
+    @media screen and (max-width : 800px) {
+      .repl {
+        width: 100%;
+      }
+    }
+
+
+    pre {
+      word-break: break-all;
+      white-space: pre-line;
+    }
+
+    .repl code {
+      scroll-behavior: smooth;
+    }
+
+    /* hide scrollbar but allow scrolling */
+    .repl code {
+      -ms-overflow-style: none;
+      /* for Internet Explorer, Edge */
+      scrollbar-width: none;
+      /* for Firefox */
+      overflow-y: scroll;
+    }
+
+    .repl code::-webkit-scrollbar {
+      display: none;
+      /* for Chrome, Safari, and Opera */
+    }
+    
+       .output {
+      background: #fff;
+      border-top: 1px solid #ddd;
+      padding: 16px;
+      font-family: monospace;
+      color: #333;
+      white-space: pre-wrap;
+    }
+  </style>
+ 
+
+  <div class="color-bg-canvas-inset pb-6">
+    <header class="container-lg mx-auto p-responsive d-flex flex-items-center flex-wrap flex-md-nowrap pt-3 pb-6">
+      <div>
+        <a class="text-white mr-3" href="https://github.com/MarketingPipeline/Tarot.js/wiki">Docs</a>
+        <a class="text-white mr-3" href="https://github.com/MarketingPipeline/Tarot.js/blob/master/CHANGELOG.md">Changelog</a>
+        <a class="text-white mr-3" href="https://cdn.jsdelivr.net/gh/MarketingPipeline/Tarot.js/">CDN</a>
+      </div>
+    </header>
+    <div class="container-lg mx-auto text-white py-6 p-responsive">
+      <h1 class="f00-light">Tarot.js</h1>
+      <p class="f3 mb-4">A lightweight JavaScript library for creating Tarot decks, spreads, and readings - complete with validation and custom spread configurations.</p>
+
+      <p>Developed by <a href="https://github.com/MarketingPipeline">@MarketingPipeline</a>. Source code is available on <a href="https://github.com/MarketingPipeline/Tarot.js">GitHub</a>. License can be found <a href="https://github.com/MarketingPipeline/Tarot.js/blob/main/LICENSE">here</a>.</p>
+    </div>
+    <div class="container-lg mx-auto py-6 p-responsive">
+      <center>
+        <h3>Tarot.js Examples</h3>
+        <h4 class="mt-4">Code Example</h4>
+      </center>
+
+      <section class="section--standalone" id="Example_AceEditor">
+        <div class="repl">
+          <!-- The Ace Editor container -->
+           <pre class="javascript hljs" style="text-align:left;"><span class="hljs-comment">// Tarot.js — Quick Example Usage</span>
+
+<span class="hljs-keyword">import</span> Tarot <span class="hljs-keyword">from</span> <span class="hljs-string">'https://esm.sh/gh/MarketingPipeline/Tarot.js'</span>;
+
+<span class="hljs-keyword">const</span> tarot = <span class="hljs-keyword">new</span> Tarot();
+
+<span class="hljs-comment">// 1. Initialize deck</span>
+tarot.initializeDeck([
+{ name: <span class="hljs-string">"The Fool"</span>, number: <span class="hljs-number">0</span> },
+{ name: <span class="hljs-string">"The Magician"</span>, number: <span class="hljs-number">1</span> },
+{ name: <span class="hljs-string">"The High Priestess"</span>, number: <span class="hljs-number">2</span> },
+{ name: <span class="hljs-string">"The Empress"</span>, number: <span class="hljs-number">3</span> }
+]);
+
+<span class="hljs-comment">// 2. Add a custom spread</span>
+tarot.addSpread(<span class="hljs-string">"Three Card Spread"</span>, {
+positions: [<span class="hljs-string">"Past"</span>, <span class="hljs-string">"Present"</span>, <span class="hljs-string">"Future"</span>],
+description: <span class="hljs-string">"A simple 3-card spread"</span>
+});
+
+<span class="hljs-comment">// 3. Perform a reading</span>
+<span class="hljs-keyword">const</span> reading = tarot.doReading(<span class="hljs-string">"Three Card Spread"</span>);
+<span class="hljs-built_in">console</span>.log(reading);
+</pre>
+          <div class="output" id="output">[
+  {
+    "position": "Past",
+    "card": {
+      "name": "The Emperor",
+      "number": 4
+    }
+  },
+  {
+    "position": "Present",
+    "card": {
+      "name": "The Empress",
+      "number": 3
+    }
+  },
+  {
+    "position": "Future",
+    "card": {
+      "name": "The High Priestess",
+      "number": 2
+    }
+  }
+]</div>
+        </div>
+      </section>
+
+
+
+<center>
+<h4>Live App Demo</h4>
+</center>
+    
+    
+      <section class="section--standalone" id="Example_AceEditor">
+        <div class="repl">
+          <!-- The Ace Editor container -->
+           <div style="width: 100%; height: 100vh; margin: 0; padding: 0; overflow: hidden;">
+  <iframe id="tarot-demo-code" src="./demo.html" width="100%" height="100%" style="border: none; display: block;" frameborder="0"></iframe>
+</div>
+
+
+          
+    
+        </div>
+      </section>
+    
+     <center>
+        <details>
+          <summary>View Source</summary>
+          <pre class="hljs overflow-x-auto whitespace-pre text-left" style="text-align:left;">
+ <span class="hljs-meta">&lt;!DOCTYPE html&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1.0"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Tarot Reading - Discover Your Path<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"description"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Get a personalized Tarot reading and discover your path. Explore insights and guidance with Tarot.js. Experience the magic today!"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"keywords"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"tarot reading, tarot cards, tarot insights, tarot.js, spiritual guidance, tarot predictions, mystic reading"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"og:type"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"website"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"og:title"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Tarot Reading - Discover Your Path"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"og:description"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"Get a personalized Tarot reading and discover your path. Explore insights and guidance with Tarot.js. Experience the magic today!"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.tailwindcss.com"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><span class="css">
+    <span class="hljs-selector-class">.fade-out</span> {
+      <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+      <span class="hljs-comment">/* Start fully visible */</span>
+      <span class="hljs-attribute">animation</span>: fadeOut <span class="hljs-number">0.5s</span> forwards;
+      <span class="hljs-comment">/* Apply the fade-out animation */</span>
+    }
+
+    @<span class="hljs-keyword">keyframes</span> fadeOut {
+      0% {
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+        <span class="hljs-comment">/* Fully visible */</span>
+      }
+
+      100% {
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+        <span class="hljs-comment">/* Fully transparent */</span>
+      }
+    }
+
+    <span class="hljs-selector-class">.fade-in</span> {
+      <span class="hljs-attribute">animation</span>: fadeIn <span class="hljs-number">0.5s</span> forwards;
+      <span class="hljs-comment">/* Apply the fade-in animation */</span>
+    }
+
+    @<span class="hljs-keyword">keyframes</span> fadeIn {
+      0% {
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">0</span>;
+        <span class="hljs-comment">/* Fully transparent */</span>
+      }
+
+      100% {
+        <span class="hljs-attribute">opacity</span>: <span class="hljs-number">1</span>;
+        <span class="hljs-comment">/* Fully visible */</span>
+      }
+    }
+  </span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bg-gray-900 text-white min-h-screen"</span>&gt;</span>
+
+  <span class="hljs-comment">&lt;!-- Page Loader Overlay --&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"pageLoader"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fixed inset-0 z-50 flex items-center justify-center bg-gray-900 text-purple-400"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-center"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-purple-500 mx-auto"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"mt-6 text-lg"</span>&gt;</span>Shuffling the cards...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container mx-auto px-4 py-8"</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- Header --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">header</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-center mb-12"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-4xl font-bold mb-4 text-purple-400"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fas fa-moon mr-2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>Mystic Tarot
+      <span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-gray-400"</span>&gt;</span>
+        Discover your path through the cards - created with
+        <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://github.com/MarketingPipeline/Tarot.js/"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-purple-400 hover:text-purple-500"</span>&gt;</span>Tarot.js<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> by
+      <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-purple-400 inline"</span>&gt;</span>
+        Jared Van Valkengoed
+      <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-gray-400"</span>&gt;</span> at <span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://github.com/MarketingPipeline/"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-purple-400 hover:text-purple-500"</span>&gt;</span>
+        MarketingPipeline
+      <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">header</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Spread Selection --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"max-w-2xl mx-auto bg-gray-800 rounded-lg p-6 mb-8 fade-in"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"spreadSelection"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"text-xl mb-4 text-center"</span>&gt;</span>Choose Your Spread<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"grid grid-cols-1 md:grid-cols-3 gap-4"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"spreadButtons"</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"spread-btn bg-purple-600 hover:bg-purple-700 p-4 rounded-lg transition-all duration-300 transform hover:scale-105"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fas fa-star mb-2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"block"</span>&gt;</span>Single Card<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"spread-btn bg-purple-600 hover:bg-purple-700 p-4 rounded-lg transition-all duration-300 transform hover:scale-105"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fas fa-cards mb-2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"block"</span>&gt;</span>Three Cards<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"spread-btn bg-purple-600 hover:bg-purple-700 p-4 rounded-lg transition-all duration-300 transform hover:scale-105"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"fas fa-cross mb-2"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"block"</span>&gt;</span>Celtic Cross<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Loading Animation --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"loadingAnimation"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hidden text-center py-8 fade-in"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"mt-4 text-purple-400"</span>&gt;</span>Consulting the cards...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- Reading Results --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"readingResults"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hidden max-w-4xl mx-auto fade-in"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"spreadContainer"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"grid gap-6"</span>&gt;</span>
+        <span class="hljs-comment">&lt;!-- Cards will be inserted here --&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+    <span class="hljs-comment">&lt;!-- New Reading Button --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"newReadingBtn"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"hidden text-center mt-8 fade-in"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-lg transition-all duration-300"</span>&gt;</span>
+        New Reading
+      <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span>&gt;</span><span class="javascript">
+<span class="hljs-keyword">import</span> Tarot <span class="hljs-keyword">from</span> <span class="hljs-string">"https://esm.sh/gh/MarketingPip/tarot.js"</span>;
+<span class="hljs-comment">// Load a existing tarot deck via ES6 assert import or via fetch etc...</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchEnglishDeck</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(
+    <span class="hljs-string">"https://esm.sh/gh/MarketingPip/tarot.js/decks/english.json"</span>
+  );
+  <span class="hljs-keyword">if</span> (!response.ok) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`HTTP error! Status: <span class="hljs-subst">${response.status}</span>`</span>);
+  }
+  <span class="hljs-keyword">const</span> englishDeck = <span class="hljs-keyword">await</span> response.json();
+  <span class="hljs-keyword">return</span> englishDeck;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initApp</span>(<span class="hljs-params">deck</span>) </span>{
+  <span class="hljs-comment">// Initialize a Tarot instance and deck</span>
+  <span class="hljs-keyword">const</span> tarot = <span class="hljs-keyword">new</span> Tarot();
+  tarot.initializeDeck(deck);
+
+  <span class="hljs-comment">// Add a spread (e.g., Past, Present, Future)</span>
+
+  tarot.addSpread(<span class="hljs-string">"single"</span>, {
+    <span class="hljs-attr">positions</span>: [<span class="hljs-string">"Your card"</span>],
+    <span class="hljs-attr">description</span>: <span class="hljs-string">"A simple one-card reading for quick insights"</span>,
+    <span class="hljs-attr">cardCount</span>: <span class="hljs-number">1</span>
+  });
+
+  tarot.addSpread(<span class="hljs-string">"Three-Card Spread"</span>, {
+    <span class="hljs-attr">positions</span>: [<span class="hljs-string">"Past"</span>, <span class="hljs-string">"Present"</span>, <span class="hljs-string">"Future"</span>],
+    <span class="hljs-attr">description</span>: <span class="hljs-string">"Insight into past, present, and future aspects."</span>
+  });
+
+  tarot.addSpread(<span class="hljs-string">"celtic-cross"</span>, {
+    <span class="hljs-attr">positions</span>: [
+      <span class="hljs-string">"Yourself"</span>,
+      <span class="hljs-string">"Your obstacle"</span>,
+      <span class="hljs-string">"Root of the question"</span>,
+      <span class="hljs-string">"The past"</span>,
+      <span class="hljs-string">"Hopes/fears"</span>,
+      <span class="hljs-string">"The future"</span>,
+      <span class="hljs-string">"Root of the outcome"</span>,
+      <span class="hljs-string">"Others in the outcome"</span>,
+      <span class="hljs-string">"Hopes/fears for outcome"</span>,
+      <span class="hljs-string">"Outcome"</span>
+    ],
+    <span class="hljs-attr">description</span>: <span class="hljs-string">"Traditional Celtic Cross spread for in-depth readings"</span>,
+    <span class="hljs-attr">cardCount</span>: <span class="hljs-number">10</span>
+  });
+
+  <span class="hljs-comment">// DOM Elements</span>
+  <span class="hljs-keyword">const</span> loadingAnimation = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"loadingAnimation"</span>);
+  <span class="hljs-keyword">const</span> readingResults = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"readingResults"</span>);
+  <span class="hljs-keyword">const</span> spreadContainer = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"spreadContainer"</span>);
+
+  <span class="hljs-keyword">const</span> spreadSelection = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"spreadSelection"</span>);
+  <span class="hljs-keyword">const</span> newReadingBtn = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"newReadingBtn"</span>);
+  <span class="hljs-keyword">const</span> spreadButtons = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">".spread-btn"</span>);
+
+  <span class="hljs-comment">// Helper function to create card element</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createCardElement</span>(<span class="hljs-params">card, position</span>) </span>{
+    <span class="hljs-keyword">const</span> cardDiv = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">"div"</span>);
+    cardDiv.className =
+      <span class="hljs-string">"bg-gray-800 p-6 rounded-lg transform transition-all duration-500 hover:scale-105 fade-in"</span>;
+    cardDiv.innerHTML = <span class="hljs-string">`
+                &lt;h3 class="text-lg font-semibold text-purple-400 mb-2"&gt;<span class="hljs-subst">${position}</span>&lt;/h3&gt;
+                &lt;div class="card-content bg-gray-700 p-4 rounded-lg"&gt;
+                    &lt;div class="text-4xl mb-4"&gt;<span class="hljs-subst">${card.symbol}</span>&lt;/div&gt;
+                    &lt;h4 class="text-xl mb-2"&gt;<span class="hljs-subst">${card.name}</span>&lt;/h4&gt;
+                    &lt;p class="text-gray-400 mb-2"&gt;<span class="hljs-subst">${card.description}</span>&lt;/p&gt;
+                    &lt;p class="text-purple-300 italic"&gt;<span class="hljs-subst">${
+                      card.meanings.length &gt; <span class="hljs-number">1</span>
+                        ? card.meanings.join(<span class="hljs-string">", "</span>)
+                        : card.meanings[<span class="hljs-number">0</span>]
+                    }</span>&lt;/p&gt;
+                &lt;/div&gt;
+            `</span>;
+    <span class="hljs-keyword">return</span> cardDiv;
+  }
+
+  <span class="hljs-comment">// Function to perform reading</span>
+  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">performReading</span>(<span class="hljs-params">spreadType</span>) </span>{
+    <span class="hljs-comment">// Show loading animation</span>
+    loadingAnimation.classList.remove(<span class="hljs-string">"hidden"</span>);
+    readingResults.classList.add(<span class="hljs-string">"hidden"</span>);
+
+    <span class="hljs-comment">// Clear previous reading</span>
+    spreadContainer.innerHTML = <span class="hljs-string">""</span>;
+
+    <span class="hljs-comment">// Simulate loading time</span>
+    <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> setTimeout(resolve, <span class="hljs-number">1500</span>));
+
+    <span class="hljs-comment">// Get reading</span>
+    <span class="hljs-keyword">const</span> reading = tarot.doReading(spreadType);
+
+    <span class="hljs-comment">// Setup grid based on spread type</span>
+
+    <span class="hljs-keyword">if</span> (spreadType === <span class="hljs-string">"single"</span>) {
+      spreadContainer.className = <span class="hljs-string">"grid gap-6"</span>;
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (spreadType === <span class="hljs-string">"Three-Card Spread"</span>) {
+      spreadContainer.className = <span class="hljs-string">"grid grid-cols-1 md:grid-cols-3 gap-6"</span>;
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (spreadType === <span class="hljs-string">"celtic-cross"</span>) {
+      spreadContainer.className =
+        <span class="hljs-string">"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"</span>;
+    }
+
+    <span class="hljs-comment">// Hide loading and show results</span>
+    loadingAnimation.classList.add(<span class="hljs-string">"hidden"</span>);
+    readingResults.classList.remove(<span class="hljs-string">"hidden"</span>);
+
+    <span class="hljs-comment">// Reveal cards one by one</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; reading.length; i++) {
+      <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> setTimeout(resolve, <span class="hljs-number">500</span>));
+      <span class="hljs-keyword">const</span> cardElement = createCardElement(
+        reading[i].card,
+        reading[i].position
+      );
+      spreadContainer.appendChild(cardElement);
+    }
+
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      newReadingBtn.classList.remove(<span class="hljs-string">"hidden"</span>);
+    }, <span class="hljs-number">500</span>); <span class="hljs-comment">// Delay of 500 milliseconds (smooth things out)</span>
+  }
+
+  <span class="hljs-comment">// Event Listeners</span>
+
+  spreadButtons.forEach(<span class="hljs-function">(<span class="hljs-params">button, index</span>) =&gt;</span> {
+    button.addEventListener(<span class="hljs-string">"click"</span>, () =&gt; {
+      spreadSelection.classList.add(<span class="hljs-string">"fade-out"</span>);
+      spreadSelection.classList.remove(<span class="hljs-string">"fade-in"</span>);
+      setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        spreadSelection.classList.add(<span class="hljs-string">"hidden"</span>, <span class="hljs-string">"fade-in"</span>);
+        spreadSelection.classList.remove(<span class="hljs-string">"fade-out"</span>);
+        <span class="hljs-comment">//newReadingBtn.classList.remove('hidden');</span>
+
+        <span class="hljs-keyword">const</span> spreadTypes = tarot.listSpreads();
+        performReading(spreadTypes[index]);
+      }, <span class="hljs-number">500</span>); <span class="hljs-comment">// Delay of 500 milliseconds (smooth things out)</span>
+    });
+  });
+
+  newReadingBtn.addEventListener(<span class="hljs-string">"click"</span>, () =&gt; {
+    readingResults.classList.add(<span class="hljs-string">"hidden"</span>);
+    newReadingBtn.classList.add(<span class="hljs-string">"hidden"</span>);
+    spreadSelection.classList.remove(<span class="hljs-string">"hidden"</span>);
+  });
+}
+
+(<span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">try</span> {
+    <span class="hljs-comment">// Fetch the tarot deck</span>
+    <span class="hljs-keyword">const</span> deck = <span class="hljs-keyword">await</span> fetchEnglishDeck();
+
+    <span class="hljs-comment">// Initialize the app with the fetched deck</span>
+    initApp(deck);
+
+    <span class="hljs-comment">// Handle page loader fade-out</span>
+    <span class="hljs-keyword">const</span> loader = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"pageLoader"</span>);
+    loader.classList.add(<span class="hljs-string">"opacity-0"</span>, <span class="hljs-string">"transition-opacity"</span>, <span class="hljs-string">"duration-700"</span>);
+
+    <span class="hljs-comment">// Wait for the transition to finish before hiding the loader</span>
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      loader.style.display = <span class="hljs-string">"none"</span>;
+    }, <span class="hljs-number">700</span>);
+  } <span class="hljs-keyword">catch</span> (error) {
+    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">"❌ Failed to fetch deck:"</span>, error);
+  }
+})();
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span> 
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+          </pre>  
+        </details>
+
+    <div class="flex justify-center items-center mt-2">
+  <a href="./demo.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-2xl shadow-md transition-all duration-200">
+    🔗 Open Live Demo
+    <span class="text-sm opacity-80">(opens in new tab ↗)</span>
+  </a>
+</div>
+       
+      </center>
+    </div>
+
+    <footer>
+      <hr>
+      <center>
+        <p>Tarot.js was created by Jared Van Valkengoed at <br><a href="https://github.com/MarketingPipeline">MarketingPipeline</a></p>
+      </center>
+    </footer>
+
+  </div>
+
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "WebPage",
+            "@id": "https://marketingpipeline.github.io/Tarot.js/",
+            "url": "https://marketingpipeline.github.io/Tarot.js/",
+            "name": "Tarot.js",
+            "description": "Tarot.js — a JavaScript library for interactive tarot readings and card spreads.",
+            "inLanguage": "en",
+            "author": {
+                "@type": "Person",
+                "name": "Jared Van Valkengoed",
+                "url": "https://marketingpip.github.io"
+            }
+        },
+        {
+            "@type": "Organization",
+            "@id": "https://github.com/MarketingPipeline",
+            "name": "MarketingPipeline",
+            "url": "https://github.com/MarketingPipeline",
+            "founder": {
+                "@type": "Person",
+                "name": "Jared Van Valkengoed",
+                "url": "https://marketingpip.github.io"
+            }
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "@id": "https://marketingpip.github.io/#person",
+            "name": "Jared Van Valkengoed",
+            "url": "https://marketingpip.github.io",
+            "sameAs": [
+                "https://github.com/MarketingPip",
+                "https://www.linkedin.com/in/jared-van-valkengoed",
+                "https://ca.linkedin.com/in/jared-van-valkengoed"
+            ],
+            "jobTitle": "Developer & Founder"
+        }
+    ]
+}
+</script>
+
+</body>
+
+</html>
