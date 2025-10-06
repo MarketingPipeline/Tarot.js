@@ -4,7 +4,7 @@ This is a list of currently available Tarot decks included in the project.
 
 ### 🔤 English Decks
 
-* **[Default](https://github.com/MarketingPipeline/Termino.js/pulls)** – A simple, standard Tarot deck for general use.
+* **[Default](https://github.com/MarketingPipeline/Tarot.js/blob/main/decks/en/default.json)** – A simple, standard Tarot deck for general use.
 * **[Waite's Deck](https://github.com/MarketingPipeline/Tarot.js/blob/main/decks/en/waites.json)** – Based on the classic Rider–Waite–Smith deck, one of the most recognized and widely used Tarot systems.
 
 
