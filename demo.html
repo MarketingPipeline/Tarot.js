@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarot Reading - Discover Your Path</title>
+  <meta name="description" content="Get a personalized Tarot reading and discover your path. Explore insights and guidance with Tarot.js. Experience the magic today!">
+  <meta name="keywords" content="tarot reading, tarot cards, tarot insights, tarot.js, spiritual guidance, tarot predictions, mystic reading">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tarot Reading - Discover Your Path">
+  <meta property="og:description" content="Get a personalized Tarot reading and discover your path. Explore insights and guidance with Tarot.js. Experience the magic today!">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .fade-out {
+      opacity: 1;
+      /* Start fully visible */
+      animation: fadeOut 0.5s forwards;
+      /* Apply the fade-out animation */
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+        /* Fully visible */
+      }
+
+      100% {
+        opacity: 0;
+        /* Fully transparent */
+      }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s forwards;
+      /* Apply the fade-in animation */
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        /* Fully transparent */
+      }
+
+      100% {
+        opacity: 1;
+        /* Fully visible */
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen">
+  
+  <!-- Page Loader Overlay -->
+<div id="pageLoader" class="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 text-purple-400">
+  <div class="text-center">
+    <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-purple-500 mx-auto"></div>
+    <p class="mt-6 text-lg">Shuffling the cards...</p>
+  </div>
+</div>
+
+  
+  <div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-4 text-purple-400">
+        <i class="fas fa-moon mr-2"></i>Mystic Tarot
+      </h1>
+      <p class="text-gray-400">
+        Discover your path through the cards - created with
+        <a href="https://github.com/MarketingPipeline/Tarot.js/" class="text-purple-400 hover:text-purple-500">Tarot.js</a> by
+      </p>
+      <p class="text-purple-400 inline">
+        Jared Van Valkengoed
+      </p>
+      <span class="text-gray-400"> at </span>
+      <a href="https://github.com/MarketingPipeline/" class="text-purple-400 hover:text-purple-500">
+        MarketingPipeline
+      </a>
+    </header>
+
+    <!-- Spread Selection -->
+    <div class="max-w-2xl mx-auto bg-gray-800 rounded-lg p-6 mb-8 fade-in" id="spreadSelection">
+      <h2 class="text-xl mb-4 text-center">Choose Your Spread</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="spreadButtons">
+        <button class="spread-btn bg-purple-600 hover:bg-purple-700 p-4 rounded-lg transition-all duration-300 transform hover:scale-105">
+          <i class="fas fa-star mb-2"></i>
+          <span class="block">Single Card</span>
+        </button>
+        <button class="spread-btn bg-purple-600 hover:bg-purple-700 p-4 rounded-lg transition-all duration-300 transform hover:scale-105">
+          <i class="fas fa-cards mb-2"></i>
+          <span class="block">Three Cards</span>
+        </button>
+        <button class="spread-btn bg-purple-600 hover:bg-purple-700 p-4 rounded-lg transition-all duration-300 transform hover:scale-105">
+          <i class="fas fa-cross mb-2"></i>
+          <span class="block">Celtic Cross</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading Animation -->
+    <div id="loadingAnimation" class="hidden text-center py-8 fade-in">
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500"></div>
+      <p class="mt-4 text-purple-400">Consulting the cards...</p>
+    </div>
+
+    <!-- Reading Results -->
+    <div id="readingResults" class="hidden max-w-4xl mx-auto fade-in">
+      <div id="spreadContainer" class="grid gap-6">
+        <!-- Cards will be inserted here -->
+      </div>
+    </div>
+
+    <!-- New Reading Button -->
+    <div id="newReadingBtn" class="hidden text-center mt-8 fade-in">
+      <button class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-lg transition-all duration-300">
+        New Reading
+      </button>
+    </div>
+  </div>
+
+
+  
+<script type="module">
+import Tarot from "https://esm.sh/gh/MarketingPip/tarot.js";
+// Load a existing tarot deck via ES6 assert import or via fetch etc...
+async function fetchEnglishDeck() {
+  const response = await fetch("https://esm.sh/gh/MarketingPipeline/Tarot.js/decks/en/default.json");
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  const englishDeck = await response.json();
+  return englishDeck;
+}
+
+
+function initApp(deck){
+    
+// Initialize a Tarot instance and deck
+const tarot = new Tarot();
+tarot.initializeDeck(deck);
+
+// Add a spread (e.g., Past, Present, Future)
+
+tarot.addSpread("single", {
+  positions: ["Your card"],
+  description: "A simple one-card reading for quick insights",
+  cardCount: 1
+});
+
+tarot.addSpread("Three-Card Spread", {
+  positions: ["Past", "Present", "Future"],
+  description: "Insight into past, present, and future aspects."
+});
+
+tarot.addSpread("celtic-cross", {
+  positions: [
+    "Yourself",
+    "Your obstacle",
+    "Root of the question",
+    "The past",
+    "Hopes/fears",
+    "The future",
+    "Root of the outcome",
+    "Others in the outcome",
+    "Hopes/fears for outcome",
+    "Outcome"
+  ],
+  description: "Traditional Celtic Cross spread for in-depth readings",
+  cardCount: 10
+});
+
+// DOM Elements
+const loadingAnimation = document.getElementById("loadingAnimation");
+const readingResults = document.getElementById("readingResults");
+const spreadContainer = document.getElementById("spreadContainer");
+
+const spreadSelection = document.getElementById("spreadSelection");
+const newReadingBtn = document.getElementById("newReadingBtn");
+const spreadButtons = document.querySelectorAll(".spread-btn");
+
+// Helper function to create card element
+function createCardElement(card, position) {
+  const cardDiv = document.createElement("div");
+  cardDiv.className =
+    "bg-gray-800 p-6 rounded-lg transform transition-all duration-500 hover:scale-105 fade-in";
+  cardDiv.innerHTML = `
+                <h3 class="text-lg font-semibold text-purple-400 mb-2">${position}</h3>
+                <div class="card-content bg-gray-700 p-4 rounded-lg">
+                    <div class="text-4xl mb-4">${card.symbol}</div>
+                    <h4 class="text-xl mb-2">${card.name}</h4>
+                    <p class="text-gray-400 mb-2">${card.description}</p>
+                    <p class="text-purple-300 italic">${
+                      card.meanings.length > 1
+                        ? card.meanings.join(", ")
+                        : card.meanings[0]
+                    }</p>
+                </div>
+            `;
+  return cardDiv;
+}
+
+// Function to perform reading
+async function performReading(spreadType) {
+  // Show loading animation
+  loadingAnimation.classList.remove("hidden");
+  readingResults.classList.add("hidden");
+
+  // Clear previous reading
+  spreadContainer.innerHTML = "";
+
+  // Simulate loading time
+  await new Promise((resolve) => setTimeout(resolve, 1500));
+
+  // Get reading
+  const reading = tarot.doReading(spreadType);
+
+  // Setup grid based on spread type
+
+  if (spreadType === "single") {
+    spreadContainer.className = "grid gap-6";
+  } else if (spreadType === "Three-Card Spread") {
+    spreadContainer.className = "grid grid-cols-1 md:grid-cols-3 gap-6";
+  } else if (spreadType === "celtic-cross") {
+    spreadContainer.className =
+      "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6";
+  }
+
+  // Hide loading and show results
+  loadingAnimation.classList.add("hidden");
+  readingResults.classList.remove("hidden");
+
+  // Reveal cards one by one
+  for (let i = 0; i < reading.length; i++) {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    const cardElement = createCardElement(reading[i].card, reading[i].position);
+    spreadContainer.appendChild(cardElement);
+  }
+
+  setTimeout(() => {
+    newReadingBtn.classList.remove("hidden");
+  }, 500); // Delay of 500 milliseconds (smooth things out)
+}
+
+// Event Listeners
+
+spreadButtons.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    spreadSelection.classList.add("fade-out");
+    spreadSelection.classList.remove("fade-in");
+    setTimeout(() => {
+      spreadSelection.classList.add("hidden", "fade-in");
+      spreadSelection.classList.remove("fade-out");
+      //newReadingBtn.classList.remove('hidden');
+
+      const spreadTypes = tarot.listSpreads();
+      performReading(spreadTypes[index]);
+    }, 500); // Delay of 500 milliseconds (smooth things out)
+  });
+});
+
+newReadingBtn.addEventListener("click", () => {
+  readingResults.classList.add("hidden");
+  newReadingBtn.classList.add("hidden");
+  spreadSelection.classList.remove("hidden");
+});
+}
+
+  
+(async () => {
+  try {
+    // Fetch the tarot deck
+    const deck = await fetchEnglishDeck();
+
+    // Initialize the app with the fetched deck
+    initApp(deck);
+
+    // Handle page loader fade-out
+    const loader = document.getElementById("pageLoader");
+    loader.classList.add("opacity-0", "transition-opacity", "duration-700");
+
+    // Wait for the transition to finish before hiding the loader
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 700);
+    
+  } catch (error) {
+    console.error("❌ Failed to fetch deck:", error);
+  }
+})();
+</script>
+  
+<script type="application/ld+json">
+{
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Tarot Reading - Discover Your Path",
+      "description": "Get a personalized Tarot reading and discover your path. Explore insights and guidance with Tarot.js. Experience the magic today!",
+      "url": "https://marketingpipeline.github.io/Tarot.js/demo/",  
+      "mainEntityOfPage": "https://marketingpipeline.github.io/Tarot.js/demo/",
+      "author": {
+        "@type": "Person",
+        "name": "Jared Van Valkengoed"
+      },
+      "keywords": "tarot reading, tarot cards, tarot insights, tarot.js, spiritual guidance, tarot predictions",
+      "potentialAction": {
+        "@type": "Action",
+        "name": "Start Tarot Reading",
+        "target": "https://marketingpipeline.github.io/Tarot.js/demo/"
+      }
+    }
+</script>  
+  
+</body>
+
+</html>
