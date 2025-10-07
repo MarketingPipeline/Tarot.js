@@ -27,7 +27,7 @@ import Tarot from "https://esm.sh/gh/MarketingPipeline/Tarot.js";
 import englishDeck from "https://esm.sh/gh/MarketingPipeline/Tarot.js/decks/en/default.json" assert { type: "json" }; 
 
 // Initialize a Tarot instance and deck
-const tarot = new Tarot.Tarot();
+const tarot = new Tarot();
 tarot.initializeDeck(englishDeck);
 
 // Access current deck and spread information
